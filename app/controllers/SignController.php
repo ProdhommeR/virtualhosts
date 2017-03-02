@@ -51,8 +51,13 @@ class SignController extends ControllerBase{
 		$ms2->addHeader ( " Success !");
 		$ms2->setStyle ( "positive" );
 		echo $ms2;
-		echo $user;
+	
+		Nom : echo $_POST["name"];
+		Prénom : echo $_POST["firstname"];
+		Email : echo $_POST["email"];
+		Login : echo $_POST["login"];
 	}
+	
 	
 	public function errorAction() {
 		$semantic = $this->semantic;
