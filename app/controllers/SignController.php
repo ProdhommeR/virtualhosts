@@ -1,4 +1,3 @@
-
 <?php
 class SignController extends ControllerBase{
 	public function indexAction(){
@@ -38,15 +37,16 @@ class SignController extends ControllerBase{
 		$password = $_POST ["password"];
 		$checkpassword = $_POST ["checkpassword"];
 		if ($checkpassword !== $password) {
-			$mess = $semantic->htmlMessage ( "messageInfo", "<b>Mots de passe non identique" );
+			$mess = $semantic->htmlMessage ( "messageInfo", "<b>Mots de passe non identiques" );
 			echo $mess;
 		} else {
 			if (isset ( $password ) && $password !== NULL && $password !== "") {
-				$toCreate [] = "password";
+				//$toCreate [] = "password";
 			}
 		}
 		
 		$user=new User();
+		$user->setIdrole(2);
 		$user->create( $_POST, $toCreate );		
 		$ms2=$semantic->htmlMessage ( "okMsg", "Sign DONE  !" );
 		$ms2->addHeader ( " Success !");
@@ -61,9 +61,7 @@ class SignController extends ControllerBase{
 		echo '<br>','Email : ', $email;
 		$login = $_POST["login"];
 		echo '<br>','Idenfiant : ', $login;
-	
 	}
-	
 	
 	public function errorAction() {
 		$semantic = $this->semantic;
