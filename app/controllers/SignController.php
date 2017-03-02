@@ -1,3 +1,4 @@
+
 <?php
 class SignController extends ControllerBase{
 	public function indexAction(){
@@ -51,11 +52,16 @@ class SignController extends ControllerBase{
 		$ms2->addHeader ( " Success !");
 		$ms2->setStyle ( "positive" );
 		echo $ms2;
+		echo "Voici vos informations personnelles : ","<br>";
+		$Nom = $_POST["name"];
+		echo "Nom : ", $Nom;
+		$prenom = $_POST["firstname"];
+		echo '<br>','Prenom : ', $prenom;
+		$email = $_POST["email"];
+		echo '<br>','Email : ', $email;
+		$login = $_POST["login"];
+		echo '<br>','Idenfiant : ', $login;
 	
-		Nom : echo $_POST["name"];
-		Prénom : echo $_POST["firstname"];
-		Email : echo $_POST["email"];
-		Login : echo $_POST["login"];
 	}
 	
 	
