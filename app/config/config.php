@@ -14,7 +14,7 @@ return new \Phalcon\Config([
         'password'    => '',
         'dbname'      => 'virtualhosts',
         'charset'     => 'utf8',
-    	'port'        => '3306',
+    	'port'        => '3305',
     ],
     'application' => [
         'appDir'         => APP_PATH . '/',
@@ -24,6 +24,7 @@ return new \Phalcon\Config([
         'viewsDir'       => APP_PATH . '/views/',
         'pluginsDir'     => APP_PATH . '/plugins/',
         'libraryDir'     => APP_PATH . '/library/',
+    	'testsDir'       => APP_PATH . '/tests/',
         'cacheDir'       => BASE_PATH . '/cache/',
         'baseUri'        => '/virtualhosts/',
     ]
