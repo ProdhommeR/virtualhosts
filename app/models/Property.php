@@ -195,5 +195,5 @@ class Property extends \Phalcon\Mvc\Model
     {
         return parent::findFirst($parameters);
     }
-
+    
 }

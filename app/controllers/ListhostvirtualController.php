@@ -2,6 +2,7 @@
 use Phalcon\Mvc\View;
 use Ajax\semantic\html\modules\checkbox\HtmlCheckbox;
 use Ajax\semantic\html\elements\HtmlInput;
+use Ajax\semantic\html\collections\HtmlMessage;
 class ListhostvirtualController extends ControllerBase {
 	
 	public function listhvAction($user=NULL){
@@ -24,7 +25,8 @@ class ListhostvirtualController extends ControllerBase {
 		foreach ($virtualhosts as $virtualhost){
 			$item=$list->addItem(["icon"=>"cloud","header"=>$virtualhost->getName(),"description"=>$virtualhost->getServer()->getName()]);
 			$props=$virtualhost->getVirtualhostproperties();
-			$item->addPopup("Propriétés :","ServeurName: ".$props[0]->getValue());
+			if(isset($props[0]))
+				$item->addPopup("Propriétés :","ServeurName: ".$props[0]->getValue());
 			$item->addToProperty("data-ajax", $virtualhost->getId());
 			$item->getOnClick("Listhostvirtual/AfficherVh","#modification",["attr"=>"data-ajax"]);
 			
@@ -38,29 +40,13 @@ class ListhostvirtualController extends ControllerBase {
 
 		$virtualhost=Virtualhost::findFirst($idVh);
 		$vhp=$virtualhost->getVirtualhostproperties();
-		$table=$semantic->htmlTable('infos',0,5);
-		$table->setHeaderValues(["VirtualHost","Nom","Description","Value"]);
-		$i=0;
-
-			$vh=$virtualhost->getName();
-			foreach ($vhp as $virtualHostProperty){
-				$property=$virtualHostProperty->getProperty();
-				$value=$virtualHostProperty->getValue();
-					
-				$table->addRow([$vh,
-						$property->getName(), $property->getDescription(),
-						$value
-							
-			
-				]);
-				$i=$i+1;
-			
-			
-			}		
 		
-		$semantic->htmlInput("idvh","hidden",$idVirtualhost);
-		$footer=$table->getFooter()->setFullWidth();
-		$footer->mergeCol(0,1);
+		$dt=$semantic->dataTable("dt","Virtualhostproperty",$vhp);
+		$dt->setFields(["virtualHost","property","property","value"]);
+		$dt->setCaptions(["VirtualHost","Nom","Description","Value"]);
+		$dt->setValueFunction(1, function($p,$vhp){return $vhp->getProperty()->getName();});
+		$dt->setValueFunction(2, function($p,$vhp){return $vhp->getProperty()->getDescription();});
+		$dt->setEmptymessage(new HtmlMessage("","Rien à afficher"));
 		$this->jquery->compile($this->view);
 	}
 }
